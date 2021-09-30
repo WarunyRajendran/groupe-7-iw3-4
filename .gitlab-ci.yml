@@ -8,4 +8,4 @@ deploy:
   #   - main
   script: 
     - gem install dpl
-    - dpl --provider=heroku --app=lumensoutenance --api_key=$HEROKU_STAGING_API_KEY
+    - dpl --provider=heroku --app=lumensoutenance --api_key=d7d94b18-625f-401d-bda4-7a5402dbd75d
