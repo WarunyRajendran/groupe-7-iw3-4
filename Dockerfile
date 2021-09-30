@@ -1,13 +1,10 @@
 FROM php:5.6-apache
 
-RUN apt-get update && apt-get upgrade -y
-RUN docker-php-ext-install mysqli
-
-# COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-# RUN composer install
-
 # RUN a2enmod rewrite
+
+RUN docker-php-ext-install pdo mysqli pdo_mysql 
+
+RUN apt-get update -y && apt-get install -y libpng-dev libfreetype6-dev libyaml-dev
 
 RUN yes | pecl install xdebug-2.5.5 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \

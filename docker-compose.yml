@@ -8,19 +8,15 @@ services:
       depends_on:
         - db 
       volumes: 
-        - ./public:/var/www/html/
+        - ./www/public:/var/www/html/
       ports:
         - 8080:80
-      networks: 
-        - composer
     
    composer: 
       image: composer
       command: composer install --ignore-platform-reqs
       volumes: 
-        - .:/app
-      networks: 
-        - composer
+        - ./www:/app
 
   
    db:
@@ -42,7 +38,4 @@ services:
       links: 
          - db
 
-networks:
-  composer:
-    driver: bridge
 
