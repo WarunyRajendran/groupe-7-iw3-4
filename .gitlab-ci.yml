@@ -1,0 +1,11 @@
+stages: 
+  - deploy
+
+deploy:
+  image: ruby
+  stage: deploy
+  # only: 
+  #   - main
+  script: 
+    - gem install dpl
+    - dpl --provider=heroku --app=citp --api_key=$HEROKU_STAGING_API_KEY
