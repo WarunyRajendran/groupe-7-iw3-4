@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+   php:
+      build:
+        dockerfile: Dockerfile
+      restart: always
+      depends_on:
+        - db 
+      volumes: 
+        - ./www:/var/www/html/
+        - ./server/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      env_file:
+         - ./.env
+      ports:
+        - 8080:80
+    
+   composer: 
+      image: composer
+      command: composer install --ignore-platform-reqs
+      volumes: 
+        - ./www:/app
+
+  
+   db:
+      image: mysql:5.6
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      environment:
+         MYSQL_ROOT_PASSWORD: root 
+         MYSQL_DATABASE: lumen
+         MYSQL_USER: devuser
+         MYSQL_PASSWORD: devpass
+      ports:
+         - 3306:3306
+  
+   my-admin-db:
+      image: phpmyadmin/phpmyadmin
+      ports:
+         - "8082:80"
+      links: 
+         - db
+
+
